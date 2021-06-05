@@ -127,7 +127,7 @@ private:
     std::sort(population.begin(), population.end(), comp);
 
     auto willSurvive = [populationSize, this](int rank) {
-      std::uniform_int_distribution<int> getProb(rank, populationSize);
+      std::uniform_int_distribution<int> getProb(0, populationSize);
       int value = getProb(rng);
       return value >= rank;
     };
@@ -177,11 +177,13 @@ private:
         int parent2 = randomIndex(rng);
         std::pair<long long, std::vector<unsigned int>> child;
         child.second = breed(nextGeneration[parent1].second, nextGeneration[parent2].second);
+        nextGeneration.push_back({});
+        std::swap(nextGeneration.back(), child);
       }
       // Мутации
       if (mutations) {
         randomIndex = std::uniform_int_distribution(0, N - 1);
-        for(int i = 0; i < populationSize; ++i) {
+        for(int i = parents; i < populationSize; ++i) {
           int index1 = randomIndex(rng);
           int index2 = randomIndex(rng);
           std::swap(nextGeneration[i].second[index1], nextGeneration[i].second[index2]);
@@ -190,7 +192,7 @@ private:
       }
       std::swap(population, nextGeneration);
       std::sort(population.begin(), population.end(), comp);
-      if (best < population.front().first) {
+      if (best > population.front().first) {
         best = population.front().first;
         result = population.front().second;
       }

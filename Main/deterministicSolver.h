@@ -301,6 +301,8 @@ private:
 
     std::vector<Edge> edgesFound;
     for(unsigned int j = 1; j <= pickedVetices; ++j) {
+      if (p[j] >= j)
+        continue;
       edgesFound.emplace_back(graphMatching.getEdge(j, p[j]), picked[j - 1], picked[p[j] - 1]);
     }
 

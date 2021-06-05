@@ -17,7 +17,7 @@
 
 int main() {
   const bool VERBOSE = true;
-  const bool OVERWRITE = false;
+  const bool OVERWRITE = true;
   Configuration conf = DataManager::readConfiguration();
   const std::string FILENAME = "sample";
   DeterministicSolver dSolver;
