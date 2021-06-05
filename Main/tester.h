@@ -29,7 +29,7 @@ public:
       std::cout << "Started testing" << std::endl;
     Graph graph;
     for(long long finished = 0; finished < tests; ++finished) {
-      if (verbose == true && finished / percentSize > curPercent) {
+      if (verbose == true && (long long)(finished / percentSize) > curPercent) {
         curPercent = (long long)(finished / percentSize);
         std::cout << "Finished " << curPercent << "%\n";
         std::cout.flush();
